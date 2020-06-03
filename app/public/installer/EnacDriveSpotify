@@ -1,0 +1,19 @@
+#!/bin/bash
+
+mkdir ~/EnacPack_temp
+cd ~/EnacPack_temp
+
+#Installing EnacDrive
+curl -L -o ENACdrives - 1.0 .6.dmg "http://enacdrives.epfl.ch/releases/download?os=macosx" 
+hdiutil mount -nobrowse ENACdrives-1.0 .6.dmg
+cp -R "/Volumes/ENACdrives/ENACdrives.app" /Applications 
+hdiutil unmount "/Volumes/ENACdrives/" 
+rm ENACdrives-1.0 .6.dmg
+
+#Installing Spotify
+curl -L -o "http://download.spotify.com/Spotify.dmg"
+hdiutil mount -nobrowse Spotify.dmg 
+cp -R "/Volumes/Spotify/Spotify.app" /Applications
+hdiutil unmount "/Volumes/Spotify"
+rm Spotify.dmg
+

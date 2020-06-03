@@ -1,0 +1,19 @@
+#!/bin/bash
+
+mkdir ~/EnacPack_temp
+cd ~/EnacPack_temp
+
+#Installing Dropbox
+curl -L -o Dropbox.dmg "https://www.dropbox.com/download?plat=mac&type=full"
+hdiutil mount -nobrowse Dropbox.dmg 
+cp -R "/Volumes/Dropbox Installer/Dropbox.app" /Applications
+hdiutil unmount "/Volumes/Dropbox Installer" 
+rm Dropbox.dmg
+
+#Installing VLC Player
+curl -L -o vlc.dmg "http://get.videolan.org/vlc/2.2.4/macosx/vlc-2.2.4.dmg" 
+hdiutil mount -nobrowse vlc.dmg -mountpoint / Volumes / vlc
+cp -R "/Volumes/vlc/VLC.app" /Applications
+hdiutil unmount "/Volumes/vlc" 
+rm vlc.dmg
+

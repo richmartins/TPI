@@ -1,0 +1,19 @@
+#!/bin/bash
+
+mkdir ~/EnacPack_temp
+cd ~/EnacPack_temp
+
+#Installing Dropbox
+curl -L -o Dropbox.dmg "https://www.dropbox.com/download?plat=mac&type=full"
+hdiutil mount -nobrowse Dropbox.dmg 
+cp -R "/Volumes/Dropbox Installer/Dropbox.app" /Applications
+hdiutil unmount "/Volumes/Dropbox Installer" 
+rm Dropbox.dmg
+
+#Installing Google Drive
+curl -L -o "https://dl-ssl.google.com/drive/installgoogledrive.dmg" 
+hdiutil mount -nobrowse installgoogledrive.dmg 
+cp -R "/Volumes/Install Google Drive/Google Drive.app" /Applications
+hdiutil unmount "/Volumes/Install Google Drive" 
+rm installgoogledrive.dmg
+

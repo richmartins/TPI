@@ -1,0 +1,26 @@
+#!/bin/bash
+
+mkdir ~/EnacPack_temp
+cd ~/EnacPack_temp
+
+#Installing Skype
+curl -L -o "http://www.skype.com/go/getskype-macosx.dmg"
+hdiutil mount -nobrowse getskype-macosx.dmg 
+cp -R "/Volumes/Skype/Skype.app" /Applications
+hdiutil unmount "/Volumes/Skype"
+rm getskype-macosx.dmg
+
+#Installing Google Drive
+curl -L -o "https://dl-ssl.google.com/drive/installgoogledrive.dmg" 
+hdiutil mount -nobrowse installgoogledrive.dmg 
+cp -R "/Volumes/Install Google Drive/Google Drive.app" /Applications
+hdiutil unmount "/Volumes/Install Google Drive" 
+rm installgoogledrive.dmg
+
+#Installing Spotify
+curl -L -o "http://download.spotify.com/Spotify.dmg"
+hdiutil mount -nobrowse Spotify.dmg 
+cp -R "/Volumes/Spotify/Spotify.app" /Applications
+hdiutil unmount "/Volumes/Spotify"
+rm Spotify.dmg
+

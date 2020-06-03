@@ -1,0 +1,20 @@
+#!/bin/bash
+
+mkdir ~/EnacPack_temp
+cd ~/EnacPack_temp
+
+#Installing EnacDrive
+curl -L -o ENACdrives - 1.0 .6.dmg "http://enacdrives.epfl.ch/releases/download?os=macosx" 
+hdiutil mount -nobrowse ENACdrives-1.0 .6.dmg
+cp -R "/Volumes/ENACdrives/ENACdrives.app" /Applications 
+hdiutil unmount "/Volumes/ENACdrives/" 
+rm ENACdrives-1.0 .6.dmg
+
+#
+Installing VLC Player
+curl -L -o vlc.dmg "http://get.videolan.org/vlc/2.2.4/macosx/vlc-2.2.4.dmg" 
+hdiutil mount -nobrowse vlc.dmg -mountpoint / Volumes / vlc
+cp -R "/Volumes/vlc/VLC.app" /Applications
+hdiutil unmount "/Volumes/vlc" 
+rm vlc.dmg
+
