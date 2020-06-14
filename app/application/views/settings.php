@@ -3,12 +3,17 @@
 <div class="settings-container">
     <table class="settings-table">
         <tr>
+            <td class="new-file">
+            <a href="<?= base_url(); ?>auth/add"><i class="far fa-file"> </i> new script</a>
+            </td>
+        </tr>
+        <tr>
             <th>NAMES</th>
             <th>SCRIPTS</th>
             <th>IMAGES</th>
             <th>OPTIONS</th>
         </tr>
-        <?php foreach ($commands as $index => $command): ?>
+       <?php foreach ($commands as $index => $command): ?>
             <tr>
                 <td> <?=$command->name?> </td>
                 <td><textarea class="settings-scripts-area" rows="10" cols="100" style="margin-bottom: 30px;  resize: none;" readonly ><?= $command->shell ?></textarea></td>

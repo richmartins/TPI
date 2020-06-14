@@ -5,7 +5,6 @@
  */
 class Home extends CI_Controller {
     private $data = [];
-    
     /**
      * __construct
      *
@@ -16,7 +15,6 @@ class Home extends CI_Controller {
         $this->load->model('applications');
         // $this->load->helper('file');
     }
-    
     /**
      * index
      *
@@ -28,15 +26,14 @@ class Home extends CI_Controller {
         $this->data['applications'] = $applications->command;
         $this->data['title'] = 'Home';
         $this->data['description'] = "For easy and fast installation<br />
-                                    Check the box(es) of app's that you want to 
-                                    install and then just click [install] and 
+                                    Check the box(es) of app's that you want to
+                                    install and then just click [install] and
                                     follow the lead on the next page";
 
         $this->load->view('templates/header', $this->data);
         $this->load->view('home', $this->data);
         $this->load->view('templates/footer');
     }
-    
     /**
      * processInputHome
      *
@@ -53,7 +50,7 @@ class Home extends CI_Controller {
         $filename = '';
         $script   = '';
         $script  .= $this->applications->getApplications()->header->shell;
-        
+
         foreach($this->applications->getApplications()->command as $command){
             foreach ($selected as $app){
                 if ($command->name === $app) {
@@ -63,10 +60,10 @@ class Home extends CI_Controller {
             }
         }
 
-
         //create shell script
         $fullfilename = FCPATH . 'public/installer/' . $filename;
-        $handle = fopen($fullfilename, 'w') or die('Cannot open file:  ' . $fullfilename); //implicitly creates file
+        $handle       = fopen($fullfilename, 'w') or die('Cannot open file:  ' . $fullfilename); //implicitly creates file
+
         if(fwrite($handle, $script)){
             echo 'file was written';
             //render view
@@ -78,7 +75,7 @@ class Home extends CI_Controller {
         }
         fclose($handle);
     }
-    
+
     /**
      * install
      *

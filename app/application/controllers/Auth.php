@@ -1,4 +1,4 @@
-<?php 
+<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 require FCPATH . 'application/libraries/tequila.php';
@@ -9,7 +9,7 @@ require FCPATH . 'application/libraries/tequila.php';
 class Auth extends CI_Controller {
     private $tequilaClt;
     private $data = [];
-    
+
     /**
      * __construct
      *
@@ -21,7 +21,7 @@ class Auth extends CI_Controller {
         // $this->load->helper('cookie');
         $this->tequilaClt = new TequilaClient();
     }
-    
+
     /**
      * isLogged
      *
@@ -33,7 +33,7 @@ class Auth extends CI_Controller {
         }
         redirect('auth/login');
     }
-    
+
     /**
      * login
      *
@@ -49,7 +49,7 @@ class Auth extends CI_Controller {
 
         redirect('auth/settings');
     }
-    
+
     /**
      * logout
      *
@@ -58,7 +58,7 @@ class Auth extends CI_Controller {
     public function logout() {
         $this->tequilaClt->Logout(base_url());
     }
-    
+
     /**
      * process_edit
      *
@@ -103,7 +103,7 @@ class Auth extends CI_Controller {
         }
         redirect('auth');
     }
-    
+
     /**
      * settings
      *
@@ -116,13 +116,12 @@ class Auth extends CI_Controller {
         $this->data['description'] = "For easy and fast installation<br />
                                       Check the box(es) of app's that you want to install and then just click [install] and follow the lead on the next page";
         $this->data['commands'] = $this->applications->getApplications()->command;
-
         //render view settings page
         $this->load->view('templates/header', $this->data);
         $this->load->view('settings', $this->data);
         $this->load->view('templates/footer', $this->data);
     }
-    
+
     /**
      * edit
      *
@@ -135,23 +134,23 @@ class Auth extends CI_Controller {
         $name = $this->input->get('name');
 
         //fetching data to render view edit page
-        $this->data['title']       = 'Edit ' . $name . ' | EnacPack';
+        $this->data['title']       = 'Edit ' . $name;
         $this->data['command']     = $this->applications->getScript($id);
         $this->data['description'] = "Edit page for application " . $name;
-        
+
         //render view edit page
         $this->load->view('templates/header', $this->data);
         $this->load->view('edit', $this->data);
         $this->load->view('templates/footer', $this->data);
     }
-    
+
     /**
      * delete
      *
      * @return void
      */
     public function delete(){
-        seft::isLogged();
+        self::isLogged();
 
         $name   = $this->input->get('name');
         $delete = $this->input->get('delete');
@@ -172,7 +171,20 @@ class Auth extends CI_Controller {
             }
         }
     }
-    
+
+    public function add(){
+        self::isLogged();
+        
+        //get new id 
+        $this->data['id'] = $this->applications->getNewId();
+
+        $this->data['title'] = 'new script';
+        $this->data['description'] = 'Fill all the fields to add a new application';
+        //render view edit page
+        $this->load->view('templates/header', $this->data);
+        $this->load->view('add', $this->data);
+        $this->load->view('templates/footer', $this->data);
+    }
     /**
      * index
      *

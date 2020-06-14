@@ -9,12 +9,11 @@ class Applications extends CI_Model {
      * Put installer_scripts.json content in $this->raw
      */
     function __construct() {
-        // parent::__construct();
         $this->raw = json_decode(file_get_contents( getcwd() . '/public/installer_scripts.json'));
     }
     /**
      * Give installer_scripts.json decoded
-     * @return object 
+     * @return object
      */
     function getApplications(){
         return $this->raw;
@@ -34,11 +33,22 @@ class Applications extends CI_Model {
         return false;
     }
 
+        
+    /**
+     * getNewId
+     *
+     * @return int
+     */
+    function getNewId(){
+        $id = count($this->raw->command) + 1;
+
+        return (int) $id;
+    }
     /**
      * give script in function of id passed
      * @args Int id
      * @return mixed
-     */    
+     */
     function getScript($id) {
         foreach($this->raw->command as $k => $obj) {
             if($id == $k){
@@ -49,15 +59,18 @@ class Applications extends CI_Model {
     }
 
     /**
-     * update the bash script in json file and the name at the id passed
-     * @args String name, Int id, String script
-     * @return boolean
+     * updateScript
+     *
+     * @param  mixed $name
+     * @param  mixed $id
+     * @param  mixed $newScript
+     * @return void
      */
     function updateScript($name, $id, $newScript) {
         $rawArray = (array) $this->raw;
         if(self::checkApplicationsExsits($name)){
             $newData = [
-                'name' => $name,
+                'name'  => $name,
                 'shell' => $newScript
             ];
 
@@ -76,9 +89,11 @@ class Applications extends CI_Model {
     }
 
     /**
-     * delete in installer file script the application in argument
-     * @args String $name, Int $id
-     * @return mixed
+     * deleteApplication
+     *
+     * @param  mixed $name
+     * @param  mixed $id
+     * @return void
      */
     function deleteApplication($name, $id){
         $rawArray = (array) $this->raw;
@@ -100,5 +115,17 @@ class Applications extends CI_Model {
             return $error;
         }
         return true;
+    }
+
+    /**
+     * add
+     *
+     * @param  mixed $name
+     * @param  mixed $id
+     * @param  mixed $shell
+     * @return void
+     */
+    function add($name, $id, $shell){
+
     }
 }
