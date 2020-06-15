@@ -2,12 +2,6 @@
     defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 
-<?php if( $this->session->flashdata('error') !== null): ?>
-    <span class="status error"><?= $this->session->flashdata('error') ?></span>
-<?php endif; ?>
-<?php if( $this->session->flashdata('success') !== null): ?>
-    <span class="status success"><?= $this->session->flashdata('success') ?></span>
-<?php endif; ?>
 <div class="edit-container">
     <form action="<?= base_url() ?>auth/processAdd" method="post" enctype="multipart/form-data" >
         <div class="edit-form-container">

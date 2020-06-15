@@ -443,3 +443,27 @@ th {
     margin-top: .7em;
     margin-bottom: -4em;
 }
+
+span.status-container{
+    display: flex;
+    margin: 1em auto;
+    justify-content: center;
+}
+span.status {
+    text-align: center;
+    border-radius: 5px;
+    margin: 0 auto;
+    width: 250px;
+    padding: .5em;
+    right: 0;
+    left: 0;
+    color: #fff;
+}
+
+span.status.error {
+    background-color: rgb(183, 28, 28);
+}
+
+span.status.succes {
+    background-color: green;
+}

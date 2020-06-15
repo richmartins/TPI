@@ -170,13 +170,17 @@ class Auth extends CI_Controller {
             }
         }
     }
-
+    
+    /**
+     * add
+     *
+     * @return void
+     */
     public function add(){
         self::isLogged();
 
         //get new id
         $this->data['id'] = $this->applications->getNewId();
-
         $this->data['title'] = 'new script';
         $this->data['description'] = 'Fill all the fields to add a new application';
         //render view edit page
@@ -184,7 +188,12 @@ class Auth extends CI_Controller {
         $this->load->view('add', $this->data);
         $this->load->view('templates/footer', $this->data);
     }
-
+    
+    /**
+     * processAdd
+     *
+     * @return void
+     */
     public function processAdd(){
         self::isLogged();
 
@@ -212,15 +221,15 @@ class Auth extends CI_Controller {
                     $this->session->set_flashdata('error', $error);
                     redirect('auth/add');
                 }
-
-                $success = "new script added";
-                $this->session->set_flashdata('success', $success);
-                redirect('auth/settings');
             } else {
                 $error = 'No image uploaded, please select one image to proceed. ';
                 $this->session->set_flashdata('error', $error);
                 redirect('auth/add');
             }
+
+            $success = "new script added";
+            $this->session->set_flashdata('success', $success);
+            redirect('auth/settings');
         }
     }
 

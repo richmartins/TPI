@@ -1,30 +1,36 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * Default model to manipulate data in installer_scripts.json in "public/" folder
+ * Applications
  */
 class Applications extends CI_Model {
     private $raw;
     private $rawArray;
+    
     /**
-     * Put installer_scripts.json content in $this->raw
+     * __construct
+     *
+     * @return void
      */
     function __construct() {
         $this->raw = json_decode(file_get_contents( getcwd() . '/public/installer_scripts.json'));
         $this->rawArray = json_decode(file_get_contents( getcwd() . '/public/installer_scripts.json'), true);
     }
+        
     /**
-     * Give installer_scripts.json decoded
-     * @return object
+     * getApplications
+     *
+     * @return Object 
      */
     function getApplications(){
         return $this->raw;
     }
-
+    
     /**
-     * Check if applications exists in installer file script
-     * @args String $name
-     * @return boolean
+     * checkApplicationsExsits
+     *
+     * @param  String $name
+     * @return Boolean
      */
     function checkApplicationsExsits($name){
         foreach($this->raw->command as $k => $obj){
@@ -42,9 +48,7 @@ class Applications extends CI_Model {
      * @return int
      */
     function getNewId(){
-        
-        $id = count($this->rawArray) + 1;
-
+        $id = count($this->rawArray['command']);
         return (int) $id;
     }
 
@@ -65,10 +69,10 @@ class Applications extends CI_Model {
     /**
      * updateScript
      *
-     * @param  mixed $name
-     * @param  mixed $id
-     * @param  mixed $newScript
-     * @return void
+     * @param  String $name
+     * @param  Int $id
+     * @param  String $newScript
+     * @return mixed
      */
     function updateScript($name, $id, $newScript) {
         
@@ -95,9 +99,9 @@ class Applications extends CI_Model {
     /**
      * deleteApplication
      *
-     * @param  mixed $name
-     * @param  mixed $id
-     * @return void
+     * @param  String $name
+     * @param  Int $id
+     * @return mixed
      */
     function deleteApplication($name, $id){
         

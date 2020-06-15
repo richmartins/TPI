@@ -31,3 +31,12 @@
             <span><?= $description ?></span>
         </div>
     </div>
+    <span class="status-container">
+        <?php if( $this->session->flashdata('error') !== null): ?>
+            <span class="status error"><?= $this->session->flashdata('error') ?></span>
+        <?php endif; ?>
+        <?php if( $this->session->flashdata('success') !== null): ?>
+            <span class="status success"><?= $this->session->flashdata('success') ?></span>
+        <?php endif; ?>
+    </span>
+    
