@@ -80,7 +80,6 @@ class Auth extends CI_Controller {
             }
         }
 
-        //update image
         if ($_FILES['img']['size'] !== 0){
             $filename  = $this->input->post('name');
             $ext       = 'png';
@@ -174,8 +173,8 @@ class Auth extends CI_Controller {
 
     public function add(){
         self::isLogged();
-        
-        //get new id 
+
+        //get new id
         $this->data['id'] = $this->applications->getNewId();
 
         $this->data['title'] = 'new script';
@@ -185,6 +184,46 @@ class Auth extends CI_Controller {
         $this->load->view('add', $this->data);
         $this->load->view('templates/footer', $this->data);
     }
+
+    public function processAdd(){
+        self::isLogged();
+
+        $name = $this->input->post('name');
+        $id = $this->input->post('id');
+        $shell = $this->input->post('script');
+        if($this->applications->add($name, $id, $shell)){
+            if ($_FILES['img']['size'] !== 0){
+                $filename  = $this->input->post('name');
+                $ext       = 'png';
+                $file_name = $this->input->post('name') .'.' . $ext;
+
+                $config['upload_path']          = './public/app-icons/';
+                $config['allowed_types']        = 'png';
+                $config['file_name']            = $file_name;
+                $config['max_size']             = 500;
+                $config['max_width']            = 512;
+                $config['max_height']           = 512;
+                $config['overwrite']            = true;
+
+                $this->load->library('upload', $config);
+
+                if ( ! $this->upload->do_upload('img')){
+                    $error = $this->upload->display_errors();
+                    $this->session->set_flashdata('error', $error);
+                    redirect('auth/add');
+                }
+
+                $success = "new script added";
+                $this->session->set_flashdata('success', $success);
+                redirect('auth/settings');
+            } else {
+                $error = 'No image uploaded, please select one image to proceed. ';
+                $this->session->set_flashdata('error', $error);
+                redirect('auth/add');
+            }
+        }
+    }
+
     /**
      * index
      *

@@ -1,17 +1,20 @@
 <?php
     defined('BASEPATH') OR exit('No direct script access allowed');
-
-    if(isset($_GET['error'])){
-        echo $_GET['error'];
-    }
 ?>
+
+<?php if( $this->session->flashdata('error') !== null): ?>
+    <span class="status error"><?= $this->session->flashdata('error') ?></span>
+<?php endif; ?>
+<?php if( $this->session->flashdata('success') !== null): ?>
+    <span class="status success"><?= $this->session->flashdata('success') ?></span>
+<?php endif; ?>
 <div class="edit-container">
-    <form action="<?= base_url() ?>auth/process_edit" method="post" enctype="multipart/form-data" >
+    <form action="<?= base_url() ?>auth/processAdd" method="post" enctype="multipart/form-data" >
         <div class="edit-form-container">
             <div class="edit-form">
                  <div id="edit-form-col-script"class="edit-form-col">
                     <span class="edit-form-header-text">NAME</span>
-                    <input name="name" class="" type="text" placeholder="My app..."/>
+                    <input name="name" class="app-name" type="text" placeholder="My app..."/>
                 </div>
                 <div id="edit-form-col-script"class="edit-form-col">
                     <span class="edit-form-header-text">SCRIPTS</span>
@@ -25,7 +28,7 @@
                 <input type="hidden" name="id" value="<?= $id ?>">
             </div>
             <div class="edit-container-btns">
-                <input type="submit" class="edit-btn" href="<?= base_url() ?>" value="APPLY">
+                <input type="submit" class="edit-btn" href="<?= base_url() ?>" value="ADD">
                 <a class="edit-btn" href="<?= base_url() ?>auth">CANCEL</a>
             </div>
         </div>

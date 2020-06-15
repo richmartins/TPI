@@ -5,11 +5,13 @@
  */
 class Applications extends CI_Model {
     private $raw;
+    private $rawArray;
     /**
      * Put installer_scripts.json content in $this->raw
      */
     function __construct() {
         $this->raw = json_decode(file_get_contents( getcwd() . '/public/installer_scripts.json'));
+        $this->rawArray = json_decode(file_get_contents( getcwd() . '/public/installer_scripts.json'), true);
     }
     /**
      * Give installer_scripts.json decoded
@@ -33,17 +35,19 @@ class Applications extends CI_Model {
         return false;
     }
 
-        
+
     /**
      * getNewId
      *
      * @return int
      */
     function getNewId(){
-        $id = count($this->raw->command) + 1;
+        
+        $id = count($this->rawArray) + 1;
 
         return (int) $id;
     }
+
     /**
      * give script in function of id passed
      * @args Int id
@@ -67,18 +71,18 @@ class Applications extends CI_Model {
      * @return void
      */
     function updateScript($name, $id, $newScript) {
-        $rawArray = (array) $this->raw;
+        
         if(self::checkApplicationsExsits($name)){
             $newData = [
                 'name'  => $name,
                 'shell' => $newScript
             ];
 
-            unset($rawArray['command'][$id]);
-            $rawArray['command'][$id] = $newData;
-            $rawArray['command'] = array_values($rawArray['command']);
+            unset($this->rawArray['command'][$id]);
+            $this->rawArray['command'][$id] = $newData;
+            $this->rawArray['command'] = array_values($this->rawArray['command']);
             //encode to json to save
-            $result = file_put_contents(FCPATH . "public/installer_scripts.json", json_encode($rawArray));
+            $result = file_put_contents(FCPATH . "public/installer_scripts.json", json_encode($this->rawArray));
             if(is_bool($result)) {
                 $error = 'An error occured while updating the file, please try again, or contact the webmaster';
                 return $error;
@@ -96,12 +100,12 @@ class Applications extends CI_Model {
      * @return void
      */
     function deleteApplication($name, $id){
-        $rawArray = (array) $this->raw;
+        
 
-        if($rawArray) {
-            unset($rawArray["command"][$id]);
-            $rawArray["command"] = array_values($rawArray["command"]);
-            file_put_contents( FCPATH . "public/installer_scripts.json", json_encode($rawArray));
+        if($this->rawArray) {
+            unset($this->rawArray["command"][$id]);
+            $this->rawArray["command"] = array_values($this->rawArray["command"]);
+            file_put_contents( FCPATH . "public/installer_scripts.json", json_encode($this->rawArray));
             unlink( FCPATH .  '/public/app-icons/' . $name . '.png');
         }
 
@@ -120,12 +124,35 @@ class Applications extends CI_Model {
     /**
      * add
      *
-     * @param  mixed $name
-     * @param  mixed $id
-     * @param  mixed $shell
-     * @return void
+     * @param  String $name
+     * @param  Int $id
+     * @param  String $shell
+     * @return mixed
      */
     function add($name, $id, $shell){
+        
+        // var_dump($this->rawArray);
+        if($this->rawArray !== null) {
+            $this->rawArray['command'][$id]['name'] = $name;
+            $this->rawArray['command'][$id]['shell'] = $shell;
 
+            foreach(array_keys($this->rawArray) as $v){
+                $v = iconv('UTF-8','ISO-8859-9', $v);
+            }
+
+            $new_json = json_encode($this->rawArray);
+
+            return file_put_contents( FCPATH . 'public/installer_scripts.json', $new_json);
+        }
+
+        if(!self::checkApplicationsExsits($name)){
+            $error = "Could not add new script";
+            return $error;
+        }
+
+        if(file_exists(FCPATH . '/public/app-icons/' . $name . 'png')){
+            $error = "Could not add image to script";
+            return $error;
+        }
     }
 }
