@@ -1,8 +1,8 @@
 # ENAC-PACKAGING
 
-Ce répertoire est développer dans le cadre de mon [TPI](http://www.ict-fr.ch/portail/images/documents/TPI/1_5_DirectiveTPI_OFFT2007.pdf).
+Ce répertoire est développé dans le cadre de mon [TPI](http://www.ict-fr.ch/portail/images/documents/TPI/1_5_DirectiveTPI_OFFT2007.pdf).
 
-Ce projet consiste a reprendre [ENACPACK](https://github.com/richmartins/EnacPack) et de le finialiser avec les contraintes d'un travail pratique individuel.
+Ce projet consiste à reprendre [ENACPACK](https://github.com/richmartins/EnacPack) et de le finialiser avec les contraintes d'un travail pratique individuel.
 
 ## Dépendences
 
