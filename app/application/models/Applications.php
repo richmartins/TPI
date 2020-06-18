@@ -6,7 +6,7 @@
 class Applications extends CI_Model {
     private $raw;
     private $rawArray;
-    
+
     /**
      * __construct
      *
@@ -16,16 +16,16 @@ class Applications extends CI_Model {
         $this->raw = json_decode(file_get_contents( getcwd() . '/public/installer_scripts.json'));
         $this->rawArray = json_decode(file_get_contents( getcwd() . '/public/installer_scripts.json'), true);
     }
-        
+
     /**
      * getApplications
      *
-     * @return Object 
+     * @return Object
      */
     function getApplications(){
         return $this->raw;
     }
-    
+
     /**
      * checkApplicationsExsits
      *
@@ -75,7 +75,7 @@ class Applications extends CI_Model {
      * @return mixed
      */
     function updateScript($name, $id, $newScript) {
-        
+
         if(self::checkApplicationsExsits($name)){
             $newData = [
                 'name'  => $name,
@@ -104,7 +104,7 @@ class Applications extends CI_Model {
      * @return mixed
      */
     function deleteApplication($name, $id){
-        
+
 
         if($this->rawArray) {
             unset($this->rawArray["command"][$id]);
@@ -134,7 +134,7 @@ class Applications extends CI_Model {
      * @return mixed
      */
     function add($name, $id, $shell){
-        
+
         // var_dump($this->rawArray);
         if($this->rawArray !== null) {
             $this->rawArray['command'][$id]['name'] = $name;

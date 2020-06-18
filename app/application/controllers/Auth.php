@@ -18,7 +18,6 @@ class Auth extends CI_Controller {
     public function __construct(){
         parent::__construct();
         $this->load->model('applications');
-        // $this->load->helper('cookie');
         $this->tequilaClt = new TequilaClient();
     }
 
@@ -170,7 +169,7 @@ class Auth extends CI_Controller {
             }
         }
     }
-    
+
     /**
      * add
      *
@@ -188,7 +187,7 @@ class Auth extends CI_Controller {
         $this->load->view('add', $this->data);
         $this->load->view('templates/footer', $this->data);
     }
-    
+
     /**
      * processAdd
      *
