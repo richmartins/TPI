@@ -20,7 +20,7 @@
                 <td><img src="<?= base_url() ?>public/app-icons/<?= $command->name?>.png" alt="<?= $command->name ?>" height="75px" width="75px"/></td>
                 <td>
                     <a class="btn-settings" href="<?= base_url() ?>auth/edit/?name=<?= $command->name ?>&id=<?= $index ?>&delete=0">EDIT</a>
-                    <a class="btn-settings" onclick="return confirm('Are you sure you want to delete this user');" href="<?= base_url() ?>auth/delete/?name=<?= $command->name ?>&id=<?= $index ?>&delete=1">DELETE</a>
+                    <a class="btn-settings" onclick="return confirm('Are you sure you want to delete this application');" href="<?= base_url() ?>auth/delete/?name=<?= $command->name ?>&id=<?= $index ?>&delete=1">DELETE</a>
                 </td>
             </tr>
         <?php endforeach; ?>

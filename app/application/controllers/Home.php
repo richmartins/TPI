@@ -14,7 +14,6 @@ class Home extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('applications');
-        // $this->load->helper('file');
     }
 
     /**
